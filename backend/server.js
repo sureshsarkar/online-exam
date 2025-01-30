@@ -14,8 +14,16 @@ app.use(cookieParser());
 
 const userRoutes = require('../backend/routes/userRoutes');
 const studentRoutes = require('../backend/routes/studentRoutes');
+const subjectRoutes = require('../backend/routes/subjectRoutes');
+const courseRoutes = require('../backend/routes/courseRoutes');
+const questionRoutes = require('../backend/routes/questionRoutes');
+const examRoutes = require('../backend/routes/examRoutes');
 app.use('/api/auth',userRoutes);
 app.use('/api/student',studentRoutes);
+app.use('/api/subject',subjectRoutes);
+app.use('/api/course',courseRoutes);
+app.use('/api/question',questionRoutes);
+app.use('/api/exam',examRoutes);
 
 // Connect to MongoDB
 

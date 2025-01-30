@@ -106,7 +106,7 @@ exports.editStudent = async (req,res)=>{
     try {
         const id = req.params.id;
 
-        const {name,email,mobile} = req.body;
+        const {name,email,mobile,status} = req.body;
 
         if(!name || !email || !mobile){
             const student = await studentModel.findById(id);
@@ -117,7 +117,7 @@ exports.editStudent = async (req,res)=>{
             })
         }
 
-        const newStudent = {name,email,mobile};
+        const newStudent = {name,email,mobile,status};
 
          await studentModel.findByIdAndUpdate(id,newStudent);
 
@@ -144,7 +144,7 @@ exports.deleteStudent = async (req,res)=>{
         })
     }
 
-        await studentModel.findByIdAndUpdate(id);
+        await studentModel.findByIdAndDelete(id);
         
         return res.status(200).send({
             message:"Student deleted successfully",
