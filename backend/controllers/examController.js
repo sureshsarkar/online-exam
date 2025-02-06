@@ -12,9 +12,9 @@ exports.addExam = async (req, res)=>{
         correctanswer,
         totalmarks} = req.body;
 
-       if(studentid || !questionid || !selectedoption || !totaltime || !totalquestion || !correctanswer ){
+       if(!studentid || !questionid || !selectedoption || !totaltime || !totalquestion || !correctanswer ){
             return res.status(201).send({
-                message:"Select atleast one question",
+                message:"Select atleast one anwser",
                 success:false 
             })
        } 
@@ -53,7 +53,7 @@ exports.allExam = async (req, res)=>{
     try {
        const Course = await examModel.find();
        return res.status(200).send({
-        message:"Got all course",
+        message:"Got all exam",
         success:true,
         Course:Course
     })
@@ -74,7 +74,7 @@ exports.deleteExam = async (req, res)=>{
 
        if(!id){
             return res.status(201).send({
-                message:"No course exist",
+                message:"No exam exist",
                 success:false
             })
        }
@@ -82,7 +82,7 @@ exports.deleteExam = async (req, res)=>{
        await examModel.findByIdAndDelete(id)
 
        return res.status(200).send({
-        message:"Course deleted successfully",
+        message:"Exam deleted successfully",
         success:true
     })
 
@@ -107,31 +107,31 @@ exports.editExam = async (req, res)=>{
         })
        }
 
-       const {subjectid,courseid,questiontext,option1,option2,option3,option4,correctoption,status} = req.body;
+       const {studentid,
+        questionid,
+        selectedoption, 
+        totaltime,
+        totalquestion,
+        totalattempt,
+        correctanswer,
+        totalmarks,
+        status} = req.body;
+       
+       if(!studentid || !questionid || !selectedoption || !totaltime || !totalquestion || !correctanswer || !totalattempt || !totalmarks ){
+        const examData = await examModel.findById(id);
+        return res.status(201).send({
+            message:"Exam Data found",
+            success:false,
+            examData:examData
+        })
+   } 
 
-       if(!subjectid || !courseid || !questiontext || !option1 || !option2 || !option3 || !option4 || !correctoption || !status){
-        const question = await examModel.findById(id);
-            return res.status(201).send({
-                message:"Got the question data",
-                success:false,
-                question:question
-            })
-       }
+       const newExam = {studentid,questionid,selectedoption,totaltime,totalquestion,totalattempt, correctanswer, totalmarks, status};
 
-       const oldQuestion = await examModel.find({questiontext});
-        if(oldQuestion !=""){
-                return res.status(201).send({
-                    message:"This question already exist",
-                    success:false
-                })
-        }
-
-       const newQuestion = {subjectid,courseid,questiontext,option1,option2,option3,option4,correctoption,status};
-
-       await examModel.findByIdAndUpdate(id,newQuestion)
+       await examModel.findByIdAndUpdate(id,newExam)
 
        return res.status(200).send({
-        message:"Question upated successfully",
+        message:"Exam upated successfully",
         success:true
     });
 

@@ -19,6 +19,11 @@ const createSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    gender: {
+        type: String,
+        enum: ['Male', 'Female', 'Other'], // Limit options to Male, Female, Other
+        required: true,
+      },
     status: 
     {
        type: Number,

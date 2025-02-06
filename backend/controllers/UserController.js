@@ -27,8 +27,7 @@ exports.addUser = async (req,res)=>{
         if(userData){
             return res.status(201).send({
                 message:"User exist",
-                success:true,
-                userData:userData
+                success:true
             }) 
         }
         
@@ -36,6 +35,7 @@ exports.addUser = async (req,res)=>{
         const newUser = new userModel({
             fullname,email,password:hashPassword,role
         })
+     
        const users =  await newUser.save();
 
        return res.status(500).send({
@@ -94,6 +94,29 @@ exports.loginUser = async (req,res)=>{
 
     }catch (error) {
         return res.status(500).send({
+            message:error.message,
+            success:false
+        })
+    }
+}
+
+
+
+exports.logoutUser = async (req,res)=>{
+    try {
+          // Clear the 'jwt' cookie
+            res.clearCookie('jwt', {
+                httpOnly: true,  // Prevents JavaScript from accessing the cookie (helps mitigate XSS)
+                sameSite: 'Strict',  // Protects against CSRF attacks
+            });
+            
+            return res.status(200).send({
+                message:"Logout successfully",
+                success:true
+            })
+
+    } catch (error) {
+        return res.status(201).send({
             message:error.message,
             success:false
         })

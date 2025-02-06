@@ -4,13 +4,20 @@ const { generateTokenAndSetCookie } = require('../utils/generateToken');
 
 exports.addStudent = async (req, res) => {
     try {
-        const { name, email, password, mobile } = req.body;
+     
+        const { name, email, password, mobile,gender } = req.body;
 
+        if(!name || !email || !password || !mobile || !gender){
+            return res.status(201).send({
+                message: "Fill the fields",
+                success: false
+            });
+        }
         // Check if student already exists
         const user = await studentModel.findOne({ email });
-
+    
         if (user) {
-            return res.status(400).send({
+            return res.status(201).send({
                 message: "Student already exists",
                 success: false
             });
@@ -18,17 +25,18 @@ exports.addStudent = async (req, res) => {
 
         // Hash the password
         const hashPassword = await bcrypt.hash(password, 10);
-
+      
         // Create new student
         const newStudent = new studentModel({
             name,
             email,
             password: hashPassword,
-            mobile
+            mobile,
+            gender
         });
-
+   
         const token = generateTokenAndSetCookie(newStudent._id,null,res)
-
+     
         // Save the student to the database
         await newStudent.save();
 
@@ -76,22 +84,36 @@ exports.loginStudent = async (req,res)=>{
             })
         }
 
-        const student = await studentModel.findOne({email}).select("-password");
+        const student = await studentModel.findOne({email, status: 1});
 
-        if(student ==''){
+        if (!student) {
             return res.status(201).send({
-                message:"No student found with this email",
-                success:false
-        })
-    }
+                message: 'Unauthorized Login',
+                success: false
+            });
+        }
 
-    const token = generateTokenAndSetCookie(student._id,null,res);
-        return res.status(201).send({
-            message:"Login successfully",
-            success:true,
-            student:student,
-            token:token
-    })
+
+        // compare password
+        const isMatch = await bcrypt.compare(password, student.password);
+
+        if (!isMatch) {
+            return res.status(400).send({
+                message: 'Email or password is incorrect',
+                success: false
+            });
+        }
+
+        const token =  generateTokenAndSetCookie(student._id, null,res);
+ 
+        return res.status(200).send({
+             message: 'Student found and logged in successfully',
+             success: true,
+             token: token
+        });
+
+
+  
 
                  
     } catch (error) {
@@ -106,9 +128,9 @@ exports.editStudent = async (req,res)=>{
     try {
         const id = req.params.id;
 
-        const {name,email,mobile,status} = req.body;
+        const {name,email,mobile,status,gender} = req.body;
 
-        if(!name || !email || !mobile){
+        if(!name || !email || !mobile || !gender){
             const student = await studentModel.findById(id);
             return res.status(201).send({
                 message:"Got Data",
@@ -117,7 +139,7 @@ exports.editStudent = async (req,res)=>{
             })
         }
 
-        const newStudent = {name,email,mobile,status};
+        const newStudent = {name,email,mobile,status,gender};
 
          await studentModel.findByIdAndUpdate(id,newStudent);
 

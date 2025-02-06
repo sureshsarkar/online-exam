@@ -42,12 +42,12 @@ exports.addCourse = async (req, res)=>{
 exports.allCourse = async (req, res)=>{
     try {
        
-       const Course = await courseModel.find();
+       const course = await courseModel.find();
 
        return res.status(200).send({
         message:"Got all course",
         success:true,
-        Course:Course
+        course:course
     })
 
     } catch (error) {
@@ -105,13 +105,13 @@ exports.editCourse = async (req, res)=>{
         const course = await courseModel.findById(id);
             return res.status(201).send({
                 message:"Got the course data",
-                success:false,
+                success:true,
                 course:course
             })
        }
 
-       const oldCourse = await courseModel.find({coursename});
-        if(oldCourse !=""){
+       const oldCourse = await courseModel.findOne({coursename, _id:{$ne:id}});
+        if(oldCourse){
                 return res.status(201).send({
                     message:"This course already exist",
                     success:false

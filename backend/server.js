@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser'); // Ensure cookie-parser is requir
 const app = express();
 dotenv.config()
 const PORT = process.env.PORT || 5000;
-app.use(cors());
+app.use(cors()); 
 app.use(express.json());
 app.use(cookieParser()); 
 
@@ -18,7 +18,7 @@ const subjectRoutes = require('../backend/routes/subjectRoutes');
 const courseRoutes = require('../backend/routes/courseRoutes');
 const questionRoutes = require('../backend/routes/questionRoutes');
 const examRoutes = require('../backend/routes/examRoutes');
-app.use('/api/auth',userRoutes);
+app.use('/api/user',userRoutes);
 app.use('/api/student',studentRoutes);
 app.use('/api/subject',subjectRoutes);
 app.use('/api/course',courseRoutes);

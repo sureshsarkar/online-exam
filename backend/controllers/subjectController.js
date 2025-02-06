@@ -105,13 +105,13 @@ exports.editSubject = async (req, res)=>{
         const subject = await subjectModel.findById(id);
             return res.status(201).send({
                 message:"Got the subject data",
-                success:false,
+                success:true,
                 subject:subject
             })
        }
 
-       const oldsubject = await subjectModel.find({subjectname});
-        if(oldsubject !=""){
+       const oldsubject = await subjectModel.findOne({ subjectname, _id: { $ne: id } });
+        if(oldsubject){
                 return res.status(201).send({
                     message:"This subject already exist",
                     success:false
