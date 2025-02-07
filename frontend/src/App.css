@@ -320,6 +320,7 @@ cursor: pointer;
 max-width: 1000px; 
 overflow-x: auto; 
 padding: 20px; 
+margin: auto;
 } 
 .report-topic-heading, 
 .item1 { 
@@ -516,3 +517,75 @@ border-radius: 4px;
     } 
     }
     
+/* --------------- MCQs ------------------  */
+.exam-container {
+    width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.question-block {
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-btn {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option-btn:hover {
+    background: #f1f1f1;
+}
+
+.selected {
+    border-color: blue;
+    background: #cce5ff;
+}
+
+.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.incorrect {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.submit-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background: #0056b3;
+}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { Dashboard } from './admin/pages/Dashboard'
-import { Login } from './admin/pages/Login'
+import  Login  from './admin/pages/Login'
 import Nav from './admin/includes/Nav'
 import Header from './admin/includes/Header'
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
@@ -31,43 +31,53 @@ import   Exams  from './admin/pages/exams/Manage';
 import   AddExam   from './admin/pages/exams/Add';
 import   EditExam   from './admin/pages/exams/Edit';
 import   ViewExam   from './admin/pages/exams/View';
+import ProtectedRoute from './auth/ProtectedRoute'
+import { AuthProvider } from './auth/AuthProvider'
 
 
 function App() {
-
   return (
     <Router>
       <Header/>
       <div className="main-container">
-      <Nav/>
+      <AuthProvider>
+      <ProtectedRoute>
+        <Nav/>
+        </ProtectedRoute>
       <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/students" element={<Students />} />
-          <Route path="/students/add" element={<AddStudents />} />
-          <Route path="/students/edit/:id" element={<EditStudents />} />
+          <Route path="/dashboard" element={ 
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+            } />
+          <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
+          <Route path="/students/add" element={<ProtectedRoute><AddStudents /></ProtectedRoute>} />
+          <Route path="/students/edit/:id" element={<ProtectedRoute><EditStudents /></ProtectedRoute>} />
           <Route path="/students/view/:id" element={<ViewStudents />} />
 
-          <Route path="/subjects" element={<Subjects />} />
-          <Route path="/subjects/add" element={<AddSubject/>} />
-          <Route path="/subjects/edit/:id" element={<EditSubject />} />
-          <Route path="/subjects/view/:id" element={<ViewSubject />} />
+          <Route path="/subjects" element={<ProtectedRoute><Subjects /></ProtectedRoute>} />
+          <Route path="/subjects/add" element={<ProtectedRoute><AddSubject /></ProtectedRoute>} />
+          <Route path="/subjects/edit/:id" element={<ProtectedRoute><EditSubject /></ProtectedRoute>} />
+          <Route path="/subjects/view/:id" element={<ProtectedRoute><ViewSubject /></ProtectedRoute>} />
 
-          <Route path="/courses" element={<Courses />} />
-          <Route path="/courses/add" element={<AddCourse/>} />
-          <Route path="/courses/edit/:id" element={<EditCourse />} />
-          <Route path="/courses/view/:id" element={<ViewCourse />} />
+          <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+          <Route path="/courses/add" element={<ProtectedRoute><AddCourse /></ProtectedRoute>} />
+          <Route path="/courses/edit/:id" element={<ProtectedRoute><EditCourse /></ProtectedRoute>} />
+          <Route path="/courses/view/:id" element={<ProtectedRoute><ViewCourse /></ProtectedRoute>} />
 
-          <Route path="/questions" element={<Questions/>} />
-          <Route path="/questions/add" element={<AddQuestion/>} />
-          <Route path="/questions/edit/:id" element={<EditQuestion />} />
-          <Route path="/questions/view/:id" element={<ViewQuestion />} />
+          <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute> } />
+          <Route path="/questions/add" element={<ProtectedRoute><AddQuestion /></ProtectedRoute>} />
+          <Route path="/questions/edit/:id" element={<ProtectedRoute><EditQuestion /></ProtectedRoute>} />
+          <Route path="/questions/view/:id" element={<ProtectedRoute><ViewQuestion /></ProtectedRoute>} />
 
-          <Route path="/exams" element={<Exams/>} />
-          <Route path="/exams/add" element={<AddExam/>} />
-          <Route path="/exams/edit/:id" element={<EditExam/>} />
-          <Route path="/exams/view/:id" element={<ViewExam/>} />
+          <Route path="/exams" element={<ProtectedRoute><Exams/></ProtectedRoute>} />
+          <Route path="/exams/add" element={<ProtectedRoute><AddExam/></ProtectedRoute>} />
+          <Route path="/exams/edit/:id" element={<ProtectedRoute><EditExam/></ProtectedRoute>} />
+          <Route path="/exams/view/:id" element={<ProtectedRoute><ViewExam/></ProtectedRoute>} />
+          
       </Routes>
+          </AuthProvider>
       </div>
       </Router>
   )

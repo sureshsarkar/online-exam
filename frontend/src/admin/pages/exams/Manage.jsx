@@ -16,12 +16,12 @@ const Manage = () => {
       name: "Action",
       cell: (row) => (
         <div className="d-flex">
-          <a href={`/courses/view/${row.id}`}>
+          <a href={`/exams/view/${row.id}`}>
             <button className="btn btn-voilate m-1" title="View">
             <i className="bi bi-eye"></i>
             </button>
           </a>
-          <a href={`/courses/edit/${row.id}`}>
+          <a href={`/exams/edit/${row.id}`}>
             <button className="btn btn-primary m-1" title="Edit">
             <i className="bi bi-pencil-square"></i>
             </button>
@@ -96,7 +96,7 @@ console.log(data);
       <div className="report-container">
         <div className="report-header">
           <h1 className="recent-Articles"><i className="bi bi-pc-display"></i> Exams</h1>
-          <a href="/courses/add">
+          <a href="/exams/add">
             <button className="btn-voilate"><i className="bi bi-plus-lg"></i> Add</button>
           </a>
         </div>
