@@ -154,7 +154,7 @@ display: flex;
 justify-content: space-evenly; 
 align-items: center; 
 flex-wrap: wrap; 
-gap: 50px; 
+gap: 20px; 
 } 
 .nav { 
 min-height: 91vh; 
@@ -519,9 +519,6 @@ border-radius: 4px;
     
 /* --------------- MCQs ------------------  */
 .exam-container {
-    width: 500px;
-    margin: 50px auto;
-    padding: 20px;
     background: #f8f9fa;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -530,6 +527,9 @@ border-radius: 4px;
 
 .question-block {
     margin-bottom: 20px;
+}
+.question-block h3{
+    text-align: left;
 }
 
 .options {
@@ -546,6 +546,8 @@ border-radius: 4px;
     background: white;
     cursor: pointer;
     transition: 0.3s;
+    color: #0c007d;
+    text-align: left;
 }
 
 .option-btn:hover {

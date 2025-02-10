@@ -1,29 +1,34 @@
-const examModel = require("../models/examModel")
+const examModel = require("../models/examModel");
+const { getIdFromToken } = require("../utils/generateToken");
 
 
 exports.addExam = async (req, res)=>{
     try {
-       const {studentid,
-        questionid,
-        selectedoption, 
+
+
+    const tokenData =  getIdFromToken(req,res);
+    const studentid = tokenData.userId;
+
+       const {
+        // questionid,
+        // selectedoption, 
         totaltime,
         totalquestion,
         totalattempt,
         correctanswer,
         totalmarks} = req.body;
 
-       if(!studentid || !questionid || !selectedoption || !totaltime || !totalquestion || !correctanswer ){
+       if(!studentid || !totaltime || !totalquestion ){
             return res.status(201).send({
                 message:"Select atleast one anwser",
-                success:false 
+                success:false,
+                kk:req.body
             })
        } 
     
 
        const newExam = new examModel({
         studentid,
-        questionid,
-        selectedoption, 
         totaltime,
         totalquestion,
         totalattempt,

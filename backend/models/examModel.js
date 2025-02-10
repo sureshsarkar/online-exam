@@ -7,11 +7,11 @@ const createSchema = new mongoose.Schema({
         required:true
     },
 
-    questionid:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'questions',
-        required:true
-    }],
+    // questionid:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'questions',
+    //     required:true
+    // }],
 
     selectedoption:[{
         type:String

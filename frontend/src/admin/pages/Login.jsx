@@ -20,21 +20,33 @@ const Login = () => {
       email: inputs.email,
       password: inputs.password
     }
+
  
     try {
-    const {data} = await axios.post("/api/user/login",formData);
-    // console.log(data);
-    // return false
-    
-    if (data?.success) {
-      toast.success(data.message);
-      // console.log(data.token);
-      
-      loginAction(data.token);
-      navigate('/dashboard')
-    }else{
-      toast.error(data.message);
-    }
+      if(inputs.email=="admin@gmail.com"){
+       
+        const {data} = await axios.post("/api/user/login",formData);
+        if (data?.success) {
+          toast.success(data.message);
+          
+          loginAction(data.token);
+          navigate('/dashboard')
+        }else{
+          toast.error(data.message);
+        }
+        
+      }else{
+        const {data} = await axios.post("/api/student/login",formData);
+        if (data?.success) {
+          toast.success(data.message);
+          
+          loginAction(data.token);
+          navigate('/dashboard')
+        }else{
+          toast.error(data.message);
+        }
+      }
+   
   } catch (error) {
     toast.success(error);
   }

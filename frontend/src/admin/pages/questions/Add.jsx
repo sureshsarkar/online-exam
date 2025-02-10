@@ -14,7 +14,7 @@ const Add = () => {
     questiontext: "",
       subjectid: "",
       courseid: "",
-      status: "",
+      status: 1,
       option1: "",
       option2: "",
       option3: "",
@@ -118,7 +118,8 @@ const Add = () => {
                 <label htmlFor="exampleInputPassword1" className="form-label">
                 Subject Name <span className="text-success"><b>*</b></span>
                 </label>
-                <select className="form-select" name="subjectid" required onChange={handleChange} value={inputs.subjectname}>
+                <select className="form-select" name="subjectid" required onChange={handleChange} value={inputs.subjectid}>
+                <option value="" disabled> -- Choose Subject --</option>
                 {subjects.map((subject) => (
                   <option key={subject._id} value={subject._id}>
                     {subject.subjectname}
@@ -134,6 +135,7 @@ const Add = () => {
                 Course Name <span className="text-success"><b>*</b></span>
                 </label>
                 <select className="form-select" name="courseid" required onChange={handleChange} value={inputs.courseid}>
+                <option value="" disabled>  -- Choose Subject --</option>
                 {courses.map((course) => (
                   <option key={course._id} value={course._id}>
                     {course.coursename}

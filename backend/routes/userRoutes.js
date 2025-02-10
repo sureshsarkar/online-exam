@@ -4,7 +4,7 @@ const { adminAuthMiddleware } = require('../middlewares/adminAuthMiddleware');
 const router = express.Router();
 
 
-router.get('/all',adminAuthMiddleware, getUsers);
+router.get('/all', getUsers);
 router.post('/add', addUser);
 router.post('/login', loginUser);
 router.get('/logout', logoutUser);

@@ -8,7 +8,7 @@ exports.addQuestion = async (req, res)=>{
        if(!subjectid || !courseid || !questiontext || !option1 || !option2 || !option3 || !option4 || !correctoption){
             return res.status(201).send({
                 message:"Fill the field",
-                success:false 
+                success:false
             })
        } 
 
