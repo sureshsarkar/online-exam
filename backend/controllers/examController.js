@@ -56,11 +56,12 @@ exports.addExam = async (req, res)=>{
 
 exports.allExam = async (req, res)=>{
     try {
-       const Course = await examModel.find();
+        const id = "67a9a2a73b4796a1d4eb0046";
+      const exam = await examModel.find().populate('studentid').exec();
        return res.status(200).send({
         message:"Got all exam",
         success:true,
-        Course:Course
+        exam:exam
     })
 
     } catch (error) {
@@ -139,6 +140,34 @@ exports.editExam = async (req, res)=>{
         message:"Exam upated successfully",
         success:true
     });
+
+    } catch (error) {
+        return res.status(201).send({
+            message:error.message,
+            success:false 
+        })
+    }
+}
+
+exports.viewExam = async(req,res)=>{
+    try{
+        const id = req.params.id;
+
+        if(!id){
+              return res.status(201).send({
+               message:"No data found",
+               success:false
+
+            })
+        }
+
+        const exam = await examModel.findById(id).populate('studentid').exec();
+        return res.status(200).send({
+           message:"Got Data",
+           success:true,
+           exam:exam
+
+        })
 
     } catch (error) {
         return res.status(201).send({

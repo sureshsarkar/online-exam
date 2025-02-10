@@ -28,8 +28,8 @@ const Login = () => {
         const {data} = await axios.post("/api/user/login",formData);
         if (data?.success) {
           toast.success(data.message);
-          
-          loginAction(data.token);
+          const tokenData = {token:data.token,role:data.role};
+          loginAction(tokenData);
           navigate('/dashboard')
         }else{
           toast.error(data.message);
@@ -39,8 +39,8 @@ const Login = () => {
         const {data} = await axios.post("/api/student/login",formData);
         if (data?.success) {
           toast.success(data.message);
-          
-          loginAction(data.token);
+          const tokenData = {token:data.token,role:""};
+          loginAction(tokenData);
           navigate('/dashboard')
         }else{
           toast.error(data.message);

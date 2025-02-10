@@ -4,9 +4,17 @@ import React, {useState,useEffect } from 'react';
 import DataTable from "react-data-table-component";
 import toast from 'react-hot-toast';
 import axios from 'axios';
-export const Dashboard = () => {
+import { useAuth } from '../../auth/AuthProvider';
+
+export const Dashboard = ({getRole,roleAuth}) => {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
+ const { token } = useAuth();
+
+  useEffect(() => {
+        getRole();
+    }, [roleAuth])
+
   // Table columns
   const columns = [
     // { name: "ID", selector: (row) => row.id, sortable: true },
@@ -77,7 +85,6 @@ const handleDeleteStudent = async (id) => {
   const fetchAllStudent = async () => {
     try {
       const { data } = await axios.get("/api/student/get-all");
-console.log(data);
 
       if (data?.success) {
         setRecords(data?.students);
@@ -105,7 +112,10 @@ console.log(data);
 
   }, []);
   return (
+ 
     <div className="main">
+     {(token && roleAuth) && 
+     <div>
       <div className="searchbar2">
         <input type="text" name="" id="" placeholder="Search" />
         <div className="searchbtn">
@@ -115,8 +125,8 @@ console.log(data);
             alt="search-button"
           />
         </div>
-      </div>
-
+      </div>  
+    
       <div className="box-container">
         <div className="box box1">
           <div className="text">
@@ -179,7 +189,10 @@ console.log(data);
             />
         </div>
       </div>
+        </div>
+    }
     </div>
+
   );
 };
 

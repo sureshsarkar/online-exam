@@ -9,6 +9,7 @@ import   Students  from './admin/pages/students/Manage';
 import   AddStudents   from './admin/pages/students/Add';
 import   EditStudents   from './admin/pages/students/Edit';
 import   ViewStudents   from './admin/pages/students/View';
+import   Profile   from './admin/pages/students/Profile';
 
 import   Subjects  from './admin/pages/subjects/Manage';
 import   AddSubject   from './admin/pages/subjects/Add';
@@ -35,31 +36,44 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import { AuthProvider } from './auth/AuthProvider'
 
 
+
 function App() {
+ const [roleAuth, setRoleAuth] = useState(null);
+
+    const getRole = ()=>{
+    const userRole = localStorage.getItem('role');
+    if(userRole){
+      setRoleAuth(userRole);// setRoleAuth(JSON.parse(logedInUser).role);
+    }else{
+      setRoleAuth(null);
+    }
+  }
   return (
     <Router>
       <Header/>
       <div className="main-container">
       <AuthProvider>
       <ProtectedRoute>
-        <Nav/>
+        <Nav getRole={getRole} roleAuth={roleAuth} />
         </ProtectedRoute>
       <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={ 
             <ProtectedRoute>
-              <Dashboard />
+              <Dashboard  getRole={getRole} roleAuth={roleAuth}  />
             </ProtectedRoute>
             } />
           <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
           <Route path="/students/add" element={<ProtectedRoute><AddStudents /></ProtectedRoute>} />
           <Route path="/students/edit/:id" element={<ProtectedRoute><EditStudents /></ProtectedRoute>} />
           <Route path="/students/view/:id" element={<ViewStudents />} />
+           <Route path="/profile" element={<Profile />} />
 
           <Route path="/subjects" element={<ProtectedRoute><Subjects /></ProtectedRoute>} />
           <Route path="/subjects/add" element={<ProtectedRoute><AddSubject /></ProtectedRoute>} />
           <Route path="/subjects/edit/:id" element={<ProtectedRoute><EditSubject /></ProtectedRoute>} />
           <Route path="/subjects/view/:id" element={<ProtectedRoute><ViewSubject /></ProtectedRoute>} />
+
 
           <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
           <Route path="/courses/add" element={<ProtectedRoute><AddCourse /></ProtectedRoute>} />
@@ -71,7 +85,7 @@ function App() {
           <Route path="/questions/edit/:id" element={<ProtectedRoute><EditQuestion /></ProtectedRoute>} />
           <Route path="/questions/view/:id" element={<ProtectedRoute><ViewQuestion /></ProtectedRoute>} />
 
-          <Route path="/exams" element={<ProtectedRoute><Exams/></ProtectedRoute>} />
+          <Route path="/exams" element={<ProtectedRoute><Exams  getRole={getRole} roleAuth={roleAuth}  /></ProtectedRoute>} />
           <Route path="/exams/add" element={<ProtectedRoute><AddExam/></ProtectedRoute>} />
           <Route path="/exams/edit/:id" element={<ProtectedRoute><EditExam/></ProtectedRoute>} />
           <Route path="/exams/view/:id" element={<ProtectedRoute><ViewExam/></ProtectedRoute>} />

@@ -550,9 +550,9 @@ border-radius: 4px;
     text-align: left;
 }
 
-.option-btn:hover {
+/*.option-btn:hover {
     background: #f1f1f1;
-}
+}*/
 
 .selected {
     border-color: blue;
@@ -590,4 +590,8 @@ border-radius: 4px;
 
 .submit-btn:hover:not(:disabled) {
     background: #0056b3;
+}
+.bg-light-voilate{
+       background-color: #3f0097;
+    color: #fff;
 }

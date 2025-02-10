@@ -7,9 +7,10 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const navigate = useNavigate();
 
-  const loginAction = (token) => {
-    setToken(token);
-    localStorage.setItem("token", token);
+  const loginAction = (tokenData) => {
+    setToken(tokenData.token);
+    localStorage.setItem("token", tokenData.token);
+    localStorage.setItem("role", tokenData.role);
     navigate("/dashboard");
   };
 
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
 
   return (
     <AuthContext.Provider value={{ token, loginAction, logoutAction }}>

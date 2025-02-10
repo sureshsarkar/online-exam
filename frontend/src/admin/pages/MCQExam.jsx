@@ -9,7 +9,7 @@ const MCQExam = () => {
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10); // 10 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
 
   const getQuestions = async () => {
     try {
@@ -62,11 +62,9 @@ const MCQExam = () => {
     };
   });
 
-  const handleSelect = (questionIndex, option) => {
-    console.log(questionIndex);
-    
-    setAnswers((prev) => ({ ...prev, [questionIndex]: option }));
-  };
+const handleSelect = (questionIndex, option) => {
+  setAnswers((prev) => ({ ...prev, [questionIndex]: option }));
+};
 
   const handleSubmit = async (e) => {
    e.preventDefault(); // Prevent page reload on form submission
@@ -85,7 +83,7 @@ const MCQExam = () => {
         totaltime:600,
         totalquestion:formattedQuestions.length,
         totalattempt:0,
-        correctanswer:score,
+        correctanswer:calculatedScore,
         totalmarks:calculatedScore,
     }
    
@@ -123,28 +121,32 @@ const MCQExam = () => {
                   {index + 1}. {q.question}
                 </h3>
                 <div className="options grid grid-cols-2 gap-4">
+                 
                   {q.options.map((option, i) => (
                     <button
                       key={i}
                       type="button"
                       className={`option-btn p-2 rounded-xl shadow-md transition-all
-                      ${!submitted
-                          ? option === q.correct
-                            ? "bg-green-200 text-green-800"
-                            : option === answers[index]
-                            ? "bg-red-200 text-red-800"
+                        ${
+                          submitted
+                            ? option === q.correct
+                              ? "bg-green-200 text-green-800" // Correct answer (after submission)
+                              : answers[index] === option
+                              ? "bg-red-200 text-red-800" // Selected wrong answer (after submission)
+                              : "bg-gray-100"
+                            : answers[index] === option
+                            ? "bg-blue-300 bg-light-voilate" // Selected option (before submission)
                             : "bg-gray-100"
-                          : answers[index] === option
-                          ? "bg-blue-200 text-blue-800"
-                          : "bg-gray-100"
-                      }
-                    `}
+                        }
+                      `}
                       onClick={() => handleSelect(index, option)}
-                      disabled={submitted}
+                      disabled={submitted} // Disable after submission
                     >
                       {option}
                     </button>
                   ))}
+
+
                 </div>
               </div>
             ))
