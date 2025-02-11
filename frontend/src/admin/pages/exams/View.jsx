@@ -1,11 +1,13 @@
 //Main.js
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const View = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [inputs ,setInputs] = useState({
     studentname:"", 
     totalmarks:"", 
@@ -14,6 +16,7 @@ const View = () => {
     updatedat:"", 
     totaltime:"", 
     correctanswer:"",
+    percentage:0,
     status:""
   });
 
@@ -33,6 +36,7 @@ const View = () => {
           totalquestion: data.exam.totalquestion,
           totaltime:data.exam.totaltime,
           correctanswer: data.exam.correctanswer,
+          percentage:data.exam.totalmarks*100/data.exam.totalquestion,
           updatedat: data.exam.updatedAt,
           createdat: data.exam.createdAt,
           status: data.exam.totalmarks*100/data.exam.totalquestion >= 33.33 ? 'Pass' : 'Fail'
@@ -50,9 +54,9 @@ const View = () => {
       <div className="report-container-1">
         <div className="report-header">
           <h1 className="recent-Articles"><i className="bi bi-plus-lg"></i> View Exam </h1>
-          <a href="/exams">
-          <button className="btn-voilate"><i className="bi bi-arrow-left"></i> Back</button>
-          </a>
+          {/*<a href="/exams">*/}
+          <button  onClick={() => navigate(-1)} className="btn-voilate"><i className="bi bi-arrow-left"></i> Back</button>
+          {/*</a>*/}
         </div>
 
         <div className="report-body">
@@ -95,6 +99,14 @@ const View = () => {
           <div className="table-responsive">
             <table className="table table-bordered table-striped">
               <tbody>
+                <tr>
+                  <th><i className="bi bi-chat-dots text-info"></i> Percentage</th>
+                  <td>
+                     <span className={`badge ${inputs.percentage >= 33 ? 'bg-success' : 'bg-danger'}`}>
+                       {inputs.percentage.toFixed(2)} %
+                     </span>
+                  </td>
+                </tr>
                 <tr>
                   <th><i className="bi bi-chat-dots text-info"></i> Status</th>
                   <td>

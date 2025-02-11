@@ -1,4 +1,5 @@
 const studentModel = require('../models/studentModel');
+const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const { generateTokenAndSetCookie,getIdFromToken } = require('../utils/generateToken');
 
@@ -132,6 +133,15 @@ exports.profile = async (req,res)=>{
 
     const profile = await studentModel.findById(id);
 
+        if(!profile){
+            const profile = await userModel.findById(id);
+
+            return res.status(200).send({
+                message:"Got the student profile data",
+                success:true,
+                student:profile
+            })  
+        }
     return res.status(200).send({
         message:"Got the student profile data",
         success:true,

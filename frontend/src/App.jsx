@@ -2,9 +2,11 @@ import { useState } from 'react'
 import './App.css'
 import { Dashboard } from './admin/pages/Dashboard'
 import  Login  from './admin/pages/Login'
+import  Register  from './admin/pages/Register'
 import Nav from './admin/includes/Nav'
 import Header from './admin/includes/Header'
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
+
 import   Students  from './admin/pages/students/Manage';
 import   AddStudents   from './admin/pages/students/Add';
 import   EditStudents   from './admin/pages/students/Edit';
@@ -53,11 +55,12 @@ function App() {
       <Header/>
       <div className="main-container">
       <AuthProvider>
-      <ProtectedRoute>
+       <ProtectedRoute>
         <Nav getRole={getRole} roleAuth={roleAuth} />
         </ProtectedRoute>
       <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={ 
             <ProtectedRoute>
               <Dashboard  getRole={getRole} roleAuth={roleAuth}  />

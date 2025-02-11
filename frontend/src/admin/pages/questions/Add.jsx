@@ -237,6 +237,7 @@ const Add = () => {
                 Correct Option <span className="text-success"><b>*</b></span>
                 </label>
                 <select className="form-select form-controle" name="correctoption" onChange={handleChange} required value={inputs.correctoption}>
+                  <option >-- Choose Option --</option>
                   <option value="option1">Option1</option>
                   <option value="option2">Option2</option>
                   <option value="option3">Option3</option>

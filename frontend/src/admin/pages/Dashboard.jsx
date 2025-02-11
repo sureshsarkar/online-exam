@@ -5,11 +5,14 @@ import DataTable from "react-data-table-component";
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useAuth } from '../../auth/AuthProvider';
+import Manage from './exams/Manage';
+
+
 
 export const Dashboard = ({getRole,roleAuth}) => {
-  const [records, setRecords] = useState([]);
-  const [loading, setLoading] = useState(false);
- const { token } = useAuth();
+const [records, setRecords] = useState([]);
+const [loading, setLoading] = useState(false);
+const { token } = useAuth();
 
   useEffect(() => {
         getRole();
@@ -114,7 +117,7 @@ const handleDeleteStudent = async (id) => {
   return (
  
     <div className="main">
-     {(token && roleAuth) && 
+     {token && roleAuth ? (
      <div>
       <div className="searchbar2">
         <input type="text" name="" id="" placeholder="Search" />
@@ -189,8 +192,10 @@ const handleDeleteStudent = async (id) => {
             />
         </div>
       </div>
-        </div>
-    }
+        </div> 
+        ) : (
+       <Manage getRole={getRole} roleAuth={roleAuth} />
+        )}
     </div>
 
   );

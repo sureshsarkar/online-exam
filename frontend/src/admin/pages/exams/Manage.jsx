@@ -85,7 +85,7 @@ const handleDeleteSubject = async (id) => {
   const fetchAllStudent = async () => {
     try {
       const { data } = await axios.get("/api/exam/get-all");
-
+console.log(data)
       if (data?.success) {
         setRecords(data?.exam);
 

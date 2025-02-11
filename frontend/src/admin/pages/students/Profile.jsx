@@ -13,7 +13,8 @@ const Profile = () => {
     mobile:"",
     password:"",
     gender:"",
-    status:""
+    status:"",
+    role:""
   });
 
   useEffect(()=>{
@@ -26,8 +27,15 @@ const Profile = () => {
       const {data} = await axios.get(`/api/student/profile`);
        console.log(data);
        
-      if(data?.success){
+      if(data?.success && data.student.role){
         setInputs({
+          name: data.student.fullname,
+          email: data.student.email,
+          status: data.student.status,
+           role: data.student.role
+        });
+      }else{
+         setInputs({
           name: data.student.name,
           email: data.student.email,
           mobile: data.student.mobile,
@@ -46,10 +54,10 @@ const Profile = () => {
     <div className="main">
       <div className="report-container-1">
         <div className="report-header">
-          <h1 className="recent-Articles"><i className="bi bi-plus-lg"></i> View Stutents</h1>
-          <a href="/students">
-          <button className="btn-voilate"><i className="bi bi-arrow-left"></i> Back</button>
-          </a>
+          <h1 className="recent-Articles"><i className="bi bi-person-badge"></i> Profile</h1>
+          {/*<a href="/students">*/}
+          <button  onClick={() => navigate(-1)} className="btn-voilate"><i className="bi bi-arrow-left"></i> Back</button>
+          {/*</a>*/}
         </div>
 
         <div className="report-body">
@@ -67,11 +75,18 @@ const Profile = () => {
                   <th><i className="bi bi-router text-info"></i> Email</th>
                   <td>{inputs.email}</td>
                 </tr>
+                {inputs.role ?(
                 <tr>
+                  <th><i className="bi bi-router text-info"></i> Role</th>
+                  <td className={inputs.role === 1 ? "text-success" : "text-danger"}>{inputs.role === 1 ? "Admin" : "Sub Admin"}</td>
+                </tr>
+              
+              ):(
+                  <tr>
                   <th><i className="bi bi-router text-info"></i> Gender</th>
                   <td>{inputs.gender}</td>
                 </tr>
-              
+              )}
               </tbody>
             </table>
           </div>
@@ -82,14 +97,15 @@ const Profile = () => {
           <div className="table-responsive">
             <table className="table table-bordered table-striped">
               <tbody>
-              <tr>
+              {inputs.mobile ?(
+                <tr>
                   <th><i className="bi bi-usb-symbol text-info"></i> Mobile</th>
                   <td>{inputs.mobile}</td>
                 </tr> 
+              ):('')}
                 <tr>
                   <th><i className="bi bi-chat-dots text-info"></i> Status</th>
                   <td className={inputs.status === 1 ? "text-success" : "text-danger"}>{inputs.status === 1 ? "Active" : "Inactive"}</td>
-
                 </tr>
               </tbody>
             </table>

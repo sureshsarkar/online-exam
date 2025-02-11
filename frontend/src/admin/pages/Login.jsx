@@ -104,8 +104,8 @@ const Login = () => {
           className="btn btn-primary"
           onClick={handleSubmit}
         >
-          Submit
-        </button>
+          Login
+        </button><span> New User <a href="/register">Sign Up </a></span>
       </form>
       </div>
     </div>

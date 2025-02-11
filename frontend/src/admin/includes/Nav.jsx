@@ -31,7 +31,7 @@ const Nav = ({getRole,roleAuth}) => {
         <div className="navcontainer">
             <nav className="nav">
                 <div className="nav-upper-options">
-                {(token && roleAuth) &&
+                {(token) &&
                     <Link to="/dashboard" className={location.pathname === "/dashboard" ? "active" : ""}>
                         <div className="nav-option">
                             <i className="bi bi-laptop"></i>
@@ -71,7 +71,7 @@ const Nav = ({getRole,roleAuth}) => {
                         </div>
                     </Link>
                     }
-                    {(token) &&
+                    {(token && roleAuth) &&
                     <Link to="/exams" className={location.pathname === "/exams" ? "active" : ""}>
                         <div className="nav-option">
                             <i className="bi bi-pc-display"></i>
