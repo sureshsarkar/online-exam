@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const Login = () => { 
+
+  const BACKEND_BASE_URL = import.meta.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const { loginAction } = useAuth();
 
@@ -23,8 +25,8 @@ const Login = () => {
     try {
       const endpoint =
         inputs.email === "admin@gmail.com"
-          ? "/api/user/login"
-          : "/api/student/login";
+          ? `${BACKEND_BASE_URL}/api/user/login`
+          : `${BACKEND_BASE_URL}/api/student/login`;
 
       const { data } = await axios.post(endpoint, formData);
 

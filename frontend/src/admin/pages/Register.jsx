@@ -148,7 +148,7 @@ const Register = () => {
             </div>
 
 
-             <div className="col-md-4">
+             {/* <div className="col-md-4">
               <div className="mb-3">
                 <label htmlFor="exampleInputPassword1" className="form-label">
                   Status
@@ -158,7 +158,7 @@ const Register = () => {
                   <option value="2">InActive</option>
                 </select>
               </div>
-            </div>
+            </div> */}
 
 
         </div>
