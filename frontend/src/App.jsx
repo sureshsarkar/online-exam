@@ -51,7 +51,7 @@ function App() {
     }
   }
   return (
-    <Router basename='/login'> 
+    <Router> 
       <Header/>
       <div className="main-container">
       <AuthProvider>
