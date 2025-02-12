@@ -29,7 +29,7 @@ const Login = () => {
       if(inputs.email=="admin@gmail.com"){
        
         const {data} = await axios.post(`${BACKEND_BASE_URL}/api/user/login`,formData);
-        console.log(data);
+        console.log(BACKEND_BASE_URL);
         
         if (data?.success) {
           toast.success(data.message);
@@ -42,7 +42,7 @@ const Login = () => {
         
       }else{
         const {data} = await axios.post(`${BACKEND_BASE_URL}/api/student/login`,formData);
-        console.log(data);
+        console.log(BACKEND_BASE_URL);
         if (data?.success) {
           toast.success(data.message);
           const tokenData = {token:data.token,role:""};
