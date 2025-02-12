@@ -40,10 +40,13 @@ import { AuthProvider } from './auth/AuthProvider'
 
 
 function App() {
+  const BASE_URL = process.env.BACKEND_BASE_URL;
  const [roleAuth, setRoleAuth] = useState(null);
 
     const getRole = ()=>{
     const userRole = localStorage.getItem('role');
+    console.log(BASE_URL+"sadas-----------------------------------");
+    
     if(userRole){
       setRoleAuth(userRole);// setRoleAuth(JSON.parse(logedInUser).role);
     }else{
