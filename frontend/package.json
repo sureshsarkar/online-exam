@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy":"https://online-exam-huez.onrender.com",
   "private": true,
   "version": "0.0.0",
   "type": "module",
