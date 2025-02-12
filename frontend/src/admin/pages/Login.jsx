@@ -25,7 +25,7 @@ const Login = () => {
     try {
       if(inputs.email=="admin@gmail.com"){
        
-        const {data} = await axios.post("/api/user/login",formData);
+        const {data} = await axios.post("https://online-exam-huez.onrender.com/api/user/login",formData);
         console.log(data);
         
         if (data?.success) {
@@ -38,7 +38,7 @@ const Login = () => {
         }
         
       }else{
-        const {data} = await axios.post("/api/student/login",formData);
+        const {data} = await axios.post("https://online-exam-huez.onrender.com/api/student/login",formData);
         console.log(data);
         if (data?.success) {
           toast.success(data.message);
