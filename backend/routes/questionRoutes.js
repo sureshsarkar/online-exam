@@ -4,10 +4,10 @@ const { adminAuthMiddleware } = require('../middlewares/adminAuthMiddleware');
 
 const router = express.Router();
 
-router.post('/add',adminAuthMiddleware,addQuestion);
-router.get('/get-all',adminAuthMiddleware,allQuestion);
-router.delete('/delete/:id',adminAuthMiddleware,deleteQuestion);
-router.put('/edit/:id',adminAuthMiddleware,editQuestion);
-router.put('/view/:id',adminAuthMiddleware,viewQuestion);
+router.post('/add',addQuestion);
+router.get('/get-all',allQuestion);
+router.delete('/delete/:id',deleteQuestion);
+router.put('/edit/:id',editQuestion);
+router.put('/view/:id',viewQuestion);
 
 module.exports = router;

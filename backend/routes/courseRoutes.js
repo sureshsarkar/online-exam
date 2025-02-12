@@ -4,9 +4,9 @@ const { adminAuthMiddleware } = require('../middlewares/adminAuthMiddleware');
 
 const router = express.Router();
 
-router.post('/add',adminAuthMiddleware,addCourse);
-router.get('/get-all',adminAuthMiddleware,allCourse);
-router.delete('/delete/:id',adminAuthMiddleware,deleteCourse);
-router.put('/edit/:id',adminAuthMiddleware,editCourse);
+router.post('/add',addCourse);
+router.get('/get-all',allCourse);
+router.delete('/delete/:id',deleteCourse);
+router.put('/edit/:id',editCourse);
 
 module.exports = router;
