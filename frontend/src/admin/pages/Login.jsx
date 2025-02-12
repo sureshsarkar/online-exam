@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Login = () => { 
 
-  const BACKEND_BASE_URL = import.meta.env.BACKEND_BASE_URL;
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const { loginAction } = useAuth();
 
