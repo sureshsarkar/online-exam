@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const Register = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const [inputs ,setInputs] = useState({
     name:"",
@@ -31,7 +32,7 @@ const Register = () => {
 
     try {
        
-        const {data} = await axios.post("/api/student/add",formData);
+        const {data} = await axios.post(`${BACKEND_BASE_URL}/api/student/add`,formData);
  //            console.log(data);
  // return false
         if (data?.success) {

@@ -2,17 +2,10 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
 import MCQExam from '../MCQExam';
 const Add = () => {
 
   const navigate = useNavigate();
-  const [inputs ,setInputs] = useState({
-    coursename:"",
-    status:1
-  });
-
 
   return (
     <div className="main">

@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import DataTable from "react-data-table-component";
 const Manage = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
   // Table columns
@@ -46,7 +47,7 @@ const handleDeleteSubject = async (id) => {
   if (!window.confirm("Are you sure you want to delete this employee?")) return;
   setLoading(true);
   try {
-    const { data } = await axios.delete(`/api/subject/delete/${id}`);
+    const { data } = await axios.delete(`${BACKEND_BASE_URL}/api/subject/delete/${id}`);
     if (data?.success) {
       toast.success(data.message);
       const studentData = records.filter(std => std.id !== id);
@@ -66,7 +67,7 @@ const handleDeleteSubject = async (id) => {
 
   const fetchAllStudent = async () => {
     try {
-      const { data } = await axios.get("/api/subject/get-all");
+      const { data } = await axios.get(`${BACKEND_BASE_URL}/api/subject/get-all`);
 
       if (data?.success) {
         setRecords(data?.subjects);

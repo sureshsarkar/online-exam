@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const View = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const { id } = useParams();
   const [inputs ,setInputs] = useState({
     questiontext:"", 
@@ -27,7 +28,7 @@ const View = () => {
 
   const fetchQuestion = async ()=>{
     try {
-      const {data} = await axios.put(`/api/question/view/${id}`);
+      const {data} = await axios.put(`${BACKEND_BASE_URL}/api/question/view/${id}`);
        console.log(data);
        
       if(data?.success){

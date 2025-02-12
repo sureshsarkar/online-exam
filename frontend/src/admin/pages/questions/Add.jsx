@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const Add = () => {
-
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const [loading,setLoading] = useState(0);
   const [courses,setCourses] = useState([]);
@@ -24,7 +24,7 @@ const Add = () => {
 
   const getCourse = async()=>{
     try {
-      const {data} = await axios.get("/api/course/get-all");
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/course/get-all`);
       setCourses(data.course)
       setLoading(1)
       // console.log(courses);
@@ -34,7 +34,7 @@ const Add = () => {
   }
   const getSubject = async()=>{
     try {
-      const {data} = await axios.get("/api/subject/get-all");
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/subject/get-all`);
       setSubjects(data.subjects)
     } catch (error) {
       toast.error(error)
@@ -59,7 +59,7 @@ const Add = () => {
     // return false;
     
     try {
-    const {data} = await axios.post("/api/question/add",formData);
+    const {data} = await axios.post(`${BACKEND_BASE_URL}/api/question/add`,formData);
     if (data?.success) {
       toast.success(data.message);
       navigate('/questions')

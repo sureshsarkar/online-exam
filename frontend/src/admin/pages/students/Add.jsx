@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const Add = () => {
-
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const [inputs ,setInputs] = useState({
     name:"",
@@ -27,7 +27,7 @@ const Add = () => {
       status: inputs.status,
     }
     try {
-    const {data} = await axios.post("/api/student/add",formData);
+    const {data} = await axios.post(`${BACKEND_BASE_URL}/api/student/add`,formData);
     if (data?.success) {
       toast.success(data.message);
       

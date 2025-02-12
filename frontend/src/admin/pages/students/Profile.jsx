@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const Profile = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const { id } = useParams();
   const navigate = useNavigate();
   const [inputs ,setInputs] = useState({
@@ -24,7 +25,7 @@ const Profile = () => {
 
   const fetchStudent = async ()=>{
     try {
-      const {data} = await axios.get(`/api/student/profile`);
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/student/profile`);
        console.log(data);
        
       if(data?.success && data.student.role){

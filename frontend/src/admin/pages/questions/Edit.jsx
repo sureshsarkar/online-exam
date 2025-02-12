@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const Edit = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading,setLoading] = useState(0);
@@ -24,7 +25,7 @@ const Edit = () => {
 
   const getQuestionById = async()=>{
     try {
-      const {data} = await axios.put(`/api/question/edit/${id}`);
+      const {data} = await axios.put(`${BACKEND_BASE_URL}/api/question/edit/${id}`);
       
       if(data?.success){
         setInputs({
@@ -47,7 +48,7 @@ const Edit = () => {
   }
   const getCourse = async()=>{
     try {
-      const {data} = await axios.get("/api/course/get-all");
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/course/get-all`);
       setCourses(data.course)
       setLoading(1)
       // console.log(courses);
@@ -57,7 +58,7 @@ const Edit = () => {
   }
   const getSubject = async()=>{
     try {
-      const {data} = await axios.get("/api/subject/get-all");
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/subject/get-all`);
       setSubjects(data.subjects)
     } catch (error) {
       toast.error(error)
@@ -82,7 +83,7 @@ const Edit = () => {
     // return false;
     
     try {
-    const {data} = await axios.put(`/api/question/edit/${id}`,formData);
+    const {data} = await axios.put(`${BACKEND_BASE_URL}/api/question/edit/${id}`,formData);
     if (data?.success) {
       toast.success(data.message);
       navigate('/questions')

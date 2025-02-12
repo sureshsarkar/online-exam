@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const View = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -27,7 +28,7 @@ const View = () => {
 
   const fetchStudent = async ()=>{
     try {
-      const {data} = await axios.get(`/api/exam/view/${id}`);
+      const {data} = await axios.get(`${BACKEND_BASE_URL}/api/exam/view/${id}`);
        console.log(data);
       if(data?.success){
         setInputs({

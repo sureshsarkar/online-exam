@@ -8,6 +8,7 @@ import { useAuth } from '../../../auth/AuthProvider';
 
 
 const Manage = ({getRole,roleAuth}) => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 const [records, setRecords] = useState([]);
 const [loading, setLoading] = useState(false);
 const { token } = useAuth();
@@ -65,7 +66,7 @@ const handleDeleteSubject = async (id) => {
   if (!window.confirm("Are you sure you want to delete this employee?")) return;
   setLoading(true);
   try {
-    const { data } = await axios.delete(`/api/exam/delete/${id}`);
+    const { data } = await axios.delete(`${BACKEND_BASE_URL}/api/exam/delete/${id}`);
     if (data?.success) {
       toast.success(data.message);
       const courseData = records.filter(cid => cid.id !== id); 
@@ -84,7 +85,7 @@ const handleDeleteSubject = async (id) => {
 
   const fetchAllStudent = async () => {
     try {
-      const { data } = await axios.get("/api/exam/get-all");
+      const { data } = await axios.get(`${BACKEND_BASE_URL}/api/exam/get-all`);
 console.log(data)
       if (data?.success) {
         setRecords(data?.exam);

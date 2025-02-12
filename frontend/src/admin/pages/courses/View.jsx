@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 const View = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const { id } = useParams();
   const [inputs ,setInputs] = useState({
     coursename:"", 
@@ -18,7 +19,7 @@ const View = () => {
 
   const fetchStudent = async ()=>{
     try {
-      const {data} = await axios.put(`/api/course/edit/${id}`);
+      const {data} = await axios.put(`${BACKEND_BASE_URL}/api/course/edit/${id}`);
       //  console.log(data);
        
       if(data?.success){

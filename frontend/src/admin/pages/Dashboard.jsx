@@ -10,6 +10,7 @@ import Manage from './exams/Manage';
 
 
 export const Dashboard = ({getRole,roleAuth}) => {
+const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
 const [records, setRecords] = useState([]);
 const [loading, setLoading] = useState(false);
 const { token } = useAuth();
@@ -67,7 +68,7 @@ const handleDeleteStudent = async (id) => {
   if (!window.confirm("Are you sure you want to delete this employee?")) return;
   setLoading(true);
   try {
-    const { data } = await axios.delete(`/api/student/delete/${id}`);
+    const { data } = await axios.delete(`${BACKEND_BASE_URL}/api/student/delete/${id}`);
     if (data?.success) {
       toast.success(data.message);
       const studentData = records.filter(std => std.id !== id);
@@ -87,7 +88,7 @@ const handleDeleteStudent = async (id) => {
 
   const fetchAllStudent = async () => {
     try {
-      const { data } = await axios.get("/api/student/get-all");
+      const { data } = await axios.get(`${BACKEND_BASE_URL}/api/student/get-all`);
 
       if (data?.success) {
         setRecords(data?.students);

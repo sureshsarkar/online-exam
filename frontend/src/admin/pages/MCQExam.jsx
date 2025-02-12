@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const MCQExam = () => {
+  const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
   const navigate = useNavigate();
   const [questionData, setQuestionData] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -14,7 +15,7 @@ const MCQExam = () => {
 
   const getQuestions = async () => {
     try {
-      const { data } = await axios.get("/api/question/get-all");
+      const { data } = await axios.get(`${BACKEND_BASE_URL}/api/question/get-all`);
       if (data?.success && Array.isArray(data.question)) {
         setQuestionData(data.question);
       } else {
@@ -78,7 +79,7 @@ const MCQExam = () => {
     };
 
     try {
-      const { data } = await axios.post("/api/exam/add", resultData);
+      const { data } = await axios.post(`${BACKEND_BASE_URL}/api/exam/add`, resultData);
       if (data?.success) {
         toast.success(data.message);
       }
