@@ -48,7 +48,7 @@ const Login = () => {
       }
    
   } catch (error) {
-    toast.success(error);
+    toast.success(error.message);
   }
   }
 
