@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 
+const BACKEND_BASE_URL = import.meta.env.BACKEND_BASE_URL;
+
+
 const Login = () => {
   const navigate = useNavigate();
   const [inputs ,setInputs] = useState({
@@ -25,7 +28,7 @@ const Login = () => {
     try {
       if(inputs.email=="admin@gmail.com"){
        
-        const {data} = await axios.post("https://online-exam-huez.onrender.com/api/user/login",formData);
+        const {data} = await axios.post(`${BACKEND_BASE_URL}/api/user/login`,formData);
         console.log(data);
         
         if (data?.success) {
@@ -38,7 +41,7 @@ const Login = () => {
         }
         
       }else{
-        const {data} = await axios.post("https://online-exam-huez.onrender.com/api/student/login",formData);
+        const {data} = await axios.post(`${BACKEND_BASE_URL}/api/student/login`,formData);
         console.log(data);
         if (data?.success) {
           toast.success(data.message);
