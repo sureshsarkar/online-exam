@@ -26,6 +26,8 @@ const Login = () => {
       if(inputs.email=="admin@gmail.com"){
        
         const {data} = await axios.post("/api/user/login",formData);
+        console.log(data);
+        
         if (data?.success) {
           toast.success(data.message);
           const tokenData = {token:data.token,role:data.role};
@@ -37,6 +39,7 @@ const Login = () => {
         
       }else{
         const {data} = await axios.post("/api/student/login",formData);
+        console.log(data);
         if (data?.success) {
           toast.success(data.message);
           const tokenData = {token:data.token,role:""};
