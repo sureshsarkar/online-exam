@@ -51,12 +51,12 @@ function App() {
     }
   }
   return (
-    <Router>
+    <Router basename='/login'> 
       <Header/>
       <div className="main-container">
       <AuthProvider>
        <ProtectedRoute>
-        <Nav getRole={getRole} roleAuth={roleAuth} />
+          <Nav getRole={getRole} roleAuth={roleAuth} />
         </ProtectedRoute>
       <Routes>
           <Route path="/login" element={<Login />} />
