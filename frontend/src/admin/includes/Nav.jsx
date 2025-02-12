@@ -5,12 +5,13 @@ import { Link, useLocation } from "react-router-dom";
 import { useAuth } from '../../auth/AuthProvider';
 
 const Nav = ({getRole,roleAuth}) => {
+    const BACKEND_BASE_URL = process.env.BACKEND_BASE_URL;
     const { logoutAction } = useAuth();
     const location = useLocation();
     const { token } = useAuth();
     const handleLogout = async () => {
         try {
-            const { data } = await axios.get("/api/user/logout");
+            const { data } = await axios.get(`${BACKEND_BASE_URL}/api/user/logout`);
 
             if (data?.success) {
                 toast.success(data.message);
