@@ -1,6 +1,6 @@
 const studentModel = require('../models/studentModel');
 const userModel = require('../models/userModel');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { generateTokenAndSetCookie,getIdFromToken } = require('../utils/generateToken');
 
 exports.addStudent = async (req, res) => {
