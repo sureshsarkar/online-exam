@@ -56,12 +56,12 @@ exports.addExam = async (req, res)=>{
 
 exports.allExam = async (req, res)=>{
     try {
-        return res.status(200).send({
-            message:"Got all exam",
-            success:true,
-            exam:exam,
-            tokenData:tokenData
-        })
+        // return res.status(200).send({
+        //     message:"Got all exam",
+        //     success:true,
+        //     exam:exam,
+        //     tokenData:tokenData
+        // })
         const tokenData =  getIdFromToken(req,res);
         const studentId = tokenData.userId;
         const role = tokenData.role;
