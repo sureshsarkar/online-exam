@@ -59,7 +59,12 @@ exports.allExam = async (req, res)=>{
        const tokenData =  getIdFromToken(req,res);
        const studentId = tokenData.userId;
         const role = tokenData.role;
-
+        return res.status(200).send({
+            message:"Got all exam",
+            success:true,
+            exam:exam,
+            tokenData:tokenData
+        })
         if(!role){
            const exam = await examModel.find({ studentid: studentId }).populate('studentid').exec();
                return res.status(200).send({
